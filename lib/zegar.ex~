@@ -1,0 +1,6 @@
+defmodule Zegar do
+    def start do
+        Task.start_link(fn() -> loop())
+    end
+end
+
