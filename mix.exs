@@ -14,7 +14,8 @@ defmodule Batleth.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger],
+    mod: { Batleth, []}]
   end
 
   # Dependencies can be Hex packages:
@@ -27,6 +28,6 @@ defmodule Batleth.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [{:amnesia, github: "meh/amnesia", tag: :master}]
   end
 end

@@ -1,0 +1,6 @@
+defmodule Plik do
+
+
+	def OstatniRekord() do
+		:not_implemented
+	end
