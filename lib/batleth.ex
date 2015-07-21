@@ -10,11 +10,11 @@ defmodule Batleth do
 		IO.puts "Witaj swiecie"
 Amnesia.transaction do
 	IO.puts "Tran1"
-	r = %Record{timestamp: 55555, status: 2, pr: 87} 
-	IO.inspect(Record.write(r))
+	r = %Wpis{timestamp: 55555, status: 2, pr: 87} 
+	IO.inspect(Wpis.write(r))
 end
 Amnesia.transaction do
-	r = Record.where timestamp == 55555
+	r = Wpis.where timestamp == 55555
 	IO.inspect r
 end
 
