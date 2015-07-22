@@ -11,9 +11,9 @@ defmodule DatabaseAccess do
 	defp loop(pid_c) do
 		receive do
 			{:get, :last_timestamp, caller} -> 
-                            #unless caller == pid_c do
-                            #    send caller, {:error}
-                            #end
+                            unless caller == pid_c do
+                                send caller, {:error}
+                            end
                             case Wpis.getLast() do
                                 nil -> send caller, {:ok, 0}
                                 l -> send caller, {:ok, l }
@@ -21,9 +21,9 @@ defmodule DatabaseAccess do
                             end
 
                         {:add, wpis, caller} ->
-                            #unless caller == pid_c do
-                            #    send caller, {:error}
-                            #end
+                            unless caller == pid_c do
+                                send caller, {:error}
+                            end
                             Wpis.parse_wpis(wpis.pr, wpis.status) |> Wpis.add
                             send caller, {:ok}
                             

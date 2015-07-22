@@ -6,9 +6,11 @@ defmodule Clock do
         If succeed, returns a tuple {:ok, pid}
         """
 	def start() do
+                
+        	Task.start_link(fn() ->
                 {:ok, pid_d} = DatabaseAccess.start(self())
                 {:ok, pid_r} = BatteryReader.start(self())
-        	Task.start_link(fn() -> loop(pid_d, pid_r) end)
+                loop(pid_d, pid_r) end)
 	end
 
 
