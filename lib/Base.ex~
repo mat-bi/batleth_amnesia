@@ -12,6 +12,8 @@ defdatabase Database do
             :not_implemented
         end
 
+        def get_last() do
+            end
 
         @doc """
             Adds and saves a Wpis in the database
