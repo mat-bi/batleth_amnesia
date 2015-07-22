@@ -43,7 +43,6 @@ defmodule BatteryReader do
 			end
 			_ -> :not_implemented		
 		end
-             loop(pid)
 	end
 
 end
