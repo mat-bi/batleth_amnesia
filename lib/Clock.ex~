@@ -29,7 +29,11 @@ defmodule Clock do
 								{:ok} -> :timer.sleep(60000)
 								{:error, :db} -> :not_implemented
 							end
+<<<<<<< HEAD
+	
+=======
 
+>>>>>>> 9a78275b5434643d1eb337ff5891c45b279b4908
 						_ -> :not_implemented
 					end
 
