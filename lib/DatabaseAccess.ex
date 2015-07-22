@@ -7,7 +7,7 @@ defmodule DatabaseAccess do
 	def start(pid_c) do
 		Task.start_link(fn() -> loop(pid_c) end)
 	end
-
+      
 	defp loop(pid_c) do
 		receive do
 			{:get, :last_timestamp, caller} -> 
@@ -15,14 +15,20 @@ defmodule DatabaseAccess do
                                 send caller, {:error}
                             end
                             case Wpis.getLast() do
-                                nil -> send caller, {:error, :not_present}
+                                nil -> send caller, {:ok, 0}
                                 l when is_integer(l) -> send caller, {:ok, l}
                                 _ -> send caller, { :error, :db }
                             end
-                            loop(pid_c)
-                        {:add, wpis, caller} -> 23
+
+                        {:add, wpis, caller} ->
+                            unless caller == pid_c do
+                                send caller, {:error}
+                            end
+                            Wpis.parse_wpis(wpis.pr, wpis.status) |> Wpis.add
+                            send caller, {:ok}
                             
 			_ -> :not_implemented
 		end
+                loop(pid_c)
 	end
 end 

@@ -26,12 +26,22 @@ defdatabase Database do
         end
 
 
-      
+        @doc """
+             Parses percentage and status to a struct Wpis, adding the current timestamp (in sec)
+             """
+
+        def parse_wpis(percentage, st) do
+            {ms, s, _ } = :os.timestamp
+            %Wpis{ timestamp: ms*1_000_000+s, status: st, pr: percentage}
+        end
+            
         @doc """
             Adds and saves a Wpis in the database
             """
         def add(self) do
-            :not_implemented
+            Amnesia.transaction do
+                write(self)
+            end
         end
     end
 end
