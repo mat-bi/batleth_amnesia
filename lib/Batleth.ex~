@@ -6,7 +6,7 @@ defmodule Batleth do
 		use Amnesia
 
 		use Database
-		#Mix.Task.run(:install, [])
+		Mix.Task.run(:install, [])
                 Amnesia.start
 		Amnesia.transaction do
 			%Wpis{timestamp: 55555, status: 2, pr: 87} |> Wpis.write!

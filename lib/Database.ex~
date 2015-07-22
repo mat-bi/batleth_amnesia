@@ -16,7 +16,7 @@ defdatabase Database do
         end
    
         @doc """
-             Returns the timestamp of the last record from the database
+             Returns the last record from the database
              """
 
         def getLast() do
@@ -26,7 +26,15 @@ defdatabase Database do
         end
 
 
-      
+        @doc """
+             Returns the timestamp of the last record in the database
+             """
+
+        def getLastTimestamp() do
+            r = getLast()
+            r.timestamp
+        end
+
         @doc """
             Adds and saves a Wpis in the database
             """

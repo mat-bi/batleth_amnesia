@@ -10,7 +10,7 @@ defmodule DatabaseAccess do
 
 	defp loop(pid_r, pid_c) do
 		receive do
-			{:get, :last_timestamp} -> 0
+			{:get, :last_timestamp} ->
 			_ -> :not_implemented
 		end
 	end
