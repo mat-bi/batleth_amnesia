@@ -18,7 +18,6 @@ Amnesia.transaction do
 end
 Amnesia.start
 Amnesia.transaction do
-        IO.puts "Tran2"
 	r = Wpis.where timestamp == 55555
 	IO.inspect r
 end
