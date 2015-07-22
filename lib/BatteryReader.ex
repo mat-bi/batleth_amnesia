@@ -25,7 +25,7 @@ defmodule BatteryReader do
 	defp loop(pid) do
 		receive do
 			{:read, caller} -> 
-			if caller == pid do
+			#if caller == pid do
 				case File.read("/sys/class/power_supply/BAT1/status") do
 					{:error, reason} -> :not_implemented
 					{:ok, status} -> status = parse_status(status)
@@ -38,9 +38,9 @@ defmodule BatteryReader do
 					_ -> :not_implemented
 				end
 				send caller, { :ok, percentage, status, self() }
-			else
-				:not_implemented
-			end
+			#else
+			#	:not_implemented
+			#end
 			_ -> :not_implemented		
 		end
              loop(pid)
