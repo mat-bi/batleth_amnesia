@@ -28,7 +28,7 @@ defmodule Clock do
 							send pid, {:add, self()}
 							receive do
 								{:ok, 
-							:timer.sleep(60000)
+							:timer.sleep(60000)}
 							
 						_ -> :not_implemented
 
