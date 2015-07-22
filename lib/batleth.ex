@@ -11,25 +11,20 @@ defmodule Batleth do
 		use Database
 		Mix.Task.run(:install, [])
                 Amnesia.start
-		IO.puts "Witaj swiecie"
 		Amnesia.transaction do
 			IO.puts "Tran1"
-			r = %Wpis{timestamp: 55555, status: 2, pr: 87} |> Wpis.write
-			IO.puts r.timestamp
+			%Wpis{timestamp: 55555, status: 2, pr: 87} |> Wpis.write!
+                        %Wpis{timestamp: 4344, status: 2, pr: 34} |> Wpis.write!
+                        %Wpis{timestamp: 43444, status: 2, pr: 3444} |> Wpis.write!
 		end
 
 		Amnesia.transaction do
-		        IO.puts "Tran2"
-			r = Wpis.where timestamp == 55555, select: status
-			IO.inspect r
-			IO.puts "Żegnaj świecie"
-			r |> Amnesia.Selection.values |> Enum.each &IO.puts(&1.status)
+			r = Wpis.where timestamp > 2, select: [status, timestamp, pr]
+                        IO.inspect r
+			r |> Amnesia.Selection.values |> Enum.each &IO.inspect(&1)
 		end
 
-
-
-		IO.puts "Hello World"
-		#Mix.Task.run(:uninstall, [])
+		Mix.Task.run(:uninstall, [])
 		{:ok, self()}
 end
 end

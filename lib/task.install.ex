@@ -5,23 +5,16 @@ defmodule Mix.Tasks.Install do
   def run(_) do
 
     IO.inspect Amnesia.Schema.create
-    #Amnesia.Schema.print
-    IO.inspect Amnesia.start
-	IO.puts "TRAN!"
+    IO.inspect Amnesia.start    
     
-    
-    #IO.inspect Database.Record.create(disk: [node])
-
-    #Database.Record.wait
-
+   
     IO.inspect Database.create(disk: [node])
 
    
 
-    Database.wait
-	IO.puts "!NART"
-    
+    IO.inspect Database.wait
+	    
     # Stop mnesia so it can flush everything and keep the data sane.
-    #Amnesia.stop
+    #IO.inspect Amnesia.stop
   end
 end
