@@ -12,6 +12,7 @@ defmodule Batleth do
 		Mix.Task.run(:install, [])
                 Amnesia.start
 		Amnesia.transaction do
+			IO.puts "Tran1"
 			%Wpis{timestamp: 55555, status: 2, pr: 87} |> Wpis.write!
                         %Wpis{timestamp: 4344, status: 2, pr: 34} |> Wpis.write!
                         %Wpis{timestamp: 43444, status: 2, pr: 3444} |> Wpis.write!
