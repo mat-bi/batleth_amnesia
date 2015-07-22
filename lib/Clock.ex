@@ -13,7 +13,6 @@ defmodule Clock do
 
 
     	defp loop(pid, pid_r) do
-        	send pid, {self()}
 		send pid, {:get, :last_timestamp, self()}
 
 		receive do
@@ -31,7 +30,6 @@ defmodule Clock do
 								{:error, :db} -> :not_implemented
 							end
 
-							
 						_ -> :not_implemented
 					end
 

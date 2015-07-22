@@ -13,11 +13,10 @@ defmodule Clock do
 
 
     	defp loop(pid, pid_r) do
-        	send pid, {self()}
 		send pid, {:get, :last_timestamp, self()}
 
 		receive do
-			{:ok, last_timestamp, self()} -> 
+			{:ok, last_timestamp} -> 
 				{ms, s, _} = :os.timestamp
 				time_dif = ms * 1_000_000 + s - last_timestamp
 
