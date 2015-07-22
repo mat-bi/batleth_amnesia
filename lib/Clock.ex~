@@ -20,7 +20,7 @@ defmodule Clock do
 				time_dif = ms * 1_000_000 + s - last_timestamp
 
 				if time_dif >= 60 do
-					{:add
+					
 				else
 					:timer.sleep(60 - time_dif)
 				end
