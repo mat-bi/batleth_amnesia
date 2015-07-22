@@ -17,7 +17,7 @@ defmodule DatabaseAccess do
                             case Wpis.getLast() do
                                 nil -> send caller, {:error, :not_present}
                                 l when is_integer(l) -> send caller, {:ok, l}
-                                _ -> send caller, { :error, :db }
+                                _ -> send caller{ :error, :db }
                             end
                             loop(pid_c)
                         {:add, wpis, caller} -> 23
