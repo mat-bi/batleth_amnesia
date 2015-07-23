@@ -2,7 +2,7 @@ defmodule BatteryReader do
 
     @doc """
         Starts a battery reader. Takes one argument - pid of the writer.
-	If succeeded, returns a tuple {:ok, pid}
+	If succeeded. returns a tuple {:ok, pid}
 	"""	
 	def start_link(pid) do    
 		Task.start_link(fn() -> loop(pid) end)

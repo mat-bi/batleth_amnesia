@@ -47,6 +47,7 @@ defmodule Clock do
 		end
 
         	receive do
+			
 			{:error, problem} -> :not_implemented
 			_ -> :timer.sleep(60000)
 			loop(pid_d, pid_r)

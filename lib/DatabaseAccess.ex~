@@ -4,7 +4,7 @@ defmodule DatabaseAccess do
 		Starts a databaseaccess. Takes two parameters - pids of the reader and the clock.
 		If succeeded, returns a tuple {:ok, pid}  
 	"""
-	def start_link(pid_c) do
+	def start(pid_c) do
 		Task.start_link(fn() -> loop(pid_c) end)
 	end
       
