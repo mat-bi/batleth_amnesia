@@ -1,7 +1,3 @@
-@doc """
-	Main module of application.
-"""
-
 defmodule Batleth do
 	use Application
 
@@ -12,18 +8,8 @@ defmodule Batleth do
 		use Database
 		Mix.Task.run(:install, [])
                 Amnesia.start
-		{:ok, pid} = Clock.start_link
-		#Amnesia.transaction do
-		#	%Wpis{timestamp: 55555, status: 2, pr: 87} |> Wpis.write!
-                #        %Wpis{timestamp: 4344, status: 2, pr: 34} |> Wpis.write!
-                #        %Wpis{timestamp: 43444, status: 2, pr: 3444} |> Wpis.write!
-		#end
-
-		#Amnesia.transaction do
-		#	r = Wpis.where timestamp > 2
-                #        IO.inspect r
-		#	r |> Amnesia.Selection.values |> Enum.each &IO.inspect(&1)
-		#end
+		#{:ok, pid} = Clock.start_link
+		{:ok, pid} = Supervisor
 
 		#Mix.Task.run(:uninstall, [])
 		{:ok, self()}
