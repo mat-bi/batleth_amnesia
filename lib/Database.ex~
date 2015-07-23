@@ -2,7 +2,7 @@ require Amnesia
 use Amnesia
 
 defdatabase Database do
-    deftable Wpis, [ :timestamp, :status, :pr, :last_st_change ], type: :ordered_set do
+    deftable Wpis, [ :timestamp, :status, :pr, :last_st_change, ], type: :ordered_set do
         @type t :: %Wpis{timestamp: non_neg_integer, status: non_neg_integer, last_st_change: non_neg_integer, pr: non_neg_integer}
         
         @doc """
