@@ -8,6 +8,7 @@ defmodule Clock do
 	def start() do
                 
         	Task.start_link(fn() ->
+
                 {:ok, pid_d} = DatabaseAccess.start(self())
                 {:ok, pid_r} = BatteryReader.start(self())
                 loop(pid_d, pid_r) end)
@@ -21,13 +22,11 @@ defmodule Clock do
 
 		receive do
 			{:ok, last_timestamp} -> 
-                                IO.puts "#{last_timestamp}"
 				{ms, s, _} = :os.timestamp
 				time_dif = ms * 1_000_000 + s - last_timestamp
 
 				if time_dif >= 60 do
 					send pid_r, {:read, self()}
-                                        IO.puts "przed receive"
 					receive do
 						{:ok, percentage, status, caller} ->
 							send pid_d, {:add, %{status: status, pr: percentage}, self()}
@@ -38,7 +37,6 @@ defmodule Clock do
 
 						_ -> :not_implemented
 					end
-                                        IO.puts "po receive"
                                         loop(pid_d, pid_r)
 				else
 					:timer.sleep(60000 - time_dif*1000)
