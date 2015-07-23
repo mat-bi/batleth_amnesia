@@ -42,7 +42,7 @@ defdatabase Database do
 	   			if a.status == st do
 					last_timestamp = a.last_st_change
 	    			else
-					last_timestamp = a.timestamp
+					last_timestamp = tms
 				end
 			nil -> last_timestamp = tms
 	   	end
