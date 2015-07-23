@@ -8,8 +8,8 @@ defmodule Batleth do
 		use Database
 		Mix.Task.run(:install, [])
                 Amnesia.start
-		#{:ok, pid} = Clock.start_link
-		{:ok, pid} = Batleth.Supervisor.init(:ok)
+		{:ok, pid} = Clock.start_link
+		#{:ok, pid} = Batleth.Supervisor.init(:ok)
 
 		#Mix.Task.run(:uninstall, [])
 		{:ok, self()}

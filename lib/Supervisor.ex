@@ -8,8 +8,8 @@ defmodule Batleth.Supervisor do
 	def init(:ok) do
 		children = [
 			worker(Clock, [[name: @batleth_Clock]]),
-			worker(BatteryReader, [[name: @batleth_Batteryreader]]),
-			worker(DatabaseAccess, [[name: @batleth_Databaseaccess]])]
+			worker(BatteryReader, [@batleth_Clock, [name: @batleth_Batteryreader]]),
+			worker(DatabaseAccess, [@batleth_Clock, [name: @batleth_Databaseaccess]])]
 	
 
 	supervise(children, strategy: :one_for_one)

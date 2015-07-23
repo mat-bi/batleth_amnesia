@@ -9,8 +9,8 @@ defmodule Clock do
                 
         	Task.start_link(fn() ->
 
-                {:ok, pid_d} = DatabaseAccess.start_link(self())
-                {:ok, pid_r} = BatteryReader.start_link(self())
+                {:ok, pid_d} = DatabaseAccess.start(self())
+                {:ok, pid_r} = BatteryReader.start(self())
                 loop(pid_d, pid_r) end)
 	end
 
