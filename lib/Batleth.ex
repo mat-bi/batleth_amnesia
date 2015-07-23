@@ -1,7 +1,7 @@
 defmodule Batleth do
 	use Application
 
-	def start_link(_type, _args) do
+	def start(_type, _args) do
 		require Amnesia
 		use Amnesia
 
@@ -9,7 +9,7 @@ defmodule Batleth do
 		Mix.Task.run(:install, [])
                 Amnesia.start
 		#{:ok, pid} = Clock.start_link
-		{:ok, pid} = Supervisor.start_link
+		{:ok, pid} = Batleth.Supervisor.init(:ok)
 
 		#Mix.Task.run(:uninstall, [])
 		{:ok, self()}
