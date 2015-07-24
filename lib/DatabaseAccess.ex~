@@ -39,9 +39,7 @@ defmodule DatabaseAccess do
 							_ -> :not_implemented
 						end
 					_ -> :not_implemented
-				end
-			_ -> :not_implemented
+			end
                 loop(pid_c)
-		end
 	end
 end 

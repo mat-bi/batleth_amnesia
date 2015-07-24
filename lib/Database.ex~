@@ -2,7 +2,7 @@ require Amnesia
 use Amnesia
 
 defdatabase Database do
-    deftable Wpis, [ :timestamp, :status, :pr, :last_st_change, ], type: :ordered_set do
+    deftable Wpis, [ :timestamp, :status, :pr, :last_st_change ], type: :ordered_set do
         @type t :: %Wpis{timestamp: non_neg_integer, status: non_neg_integer, last_st_change: non_neg_integer, pr: non_neg_integer}
         
         @doc """
@@ -30,7 +30,7 @@ defdatabase Database do
              Parses percentage and status to a struct Wpis, adding the current timestamp (in sec)
              """
 
-        def parse_wpis(percentage, st) do
+        def parse_wpis(percentage, st, tmp \\ :timestamp) do
 	{ms, s, _ } = :os.timestamp
 	tms = ms*1_000_000+s
 	    Amnesia.transaction do
@@ -42,10 +42,14 @@ defdatabase Database do
 	   			if a.status == st do
 					last_timestamp = a.last_st_change
 	    			else
-					last_timestamp = a.timestamp
+					last_timestamp = tms
 				end
 			nil -> last_timestamp = tms
 	   	end
+		case tmp do
+			:timestamp -> tms = nil
+			_ -> tms = tms
+		end
             %Wpis{ timestamp: tms, status: st, pr: percentage, last_st_change: last_timestamp}
 
 	    end 

@@ -30,7 +30,7 @@ defdatabase Database do
              Parses percentage and status to a struct Wpis, adding the current timestamp (in sec)
              """
 
-        def parse_wpis(percentage, st) do
+        def parse_wpis(percentage, st, tmp \\ :timestamp) do
 	{ms, s, _ } = :os.timestamp
 	tms = ms*1_000_000+s
 	    Amnesia.transaction do
@@ -46,6 +46,10 @@ defdatabase Database do
 				end
 			nil -> last_timestamp = tms
 	   	end
+		case tmp do
+			:timestamp -> tms = nil
+			_ -> tms = tms
+		end 
             %Wpis{ timestamp: tms, status: st, pr: percentage, last_st_change: last_timestamp}
 
 	    end 
