@@ -28,7 +28,9 @@ defmodule Clock do
 				if time_dif >= 60 do
 					if time_dif > 60 do
 						send pid_d, {:add, :nil, self()}
-						flush()
+						receive do
+							{:ok} -> :ko
+						end
 					end
 
 					send pid_r, {:read, self()}
