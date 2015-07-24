@@ -26,13 +26,18 @@ defmodule Clock do
 				time_dif = ms * 1_000_000 + s - last_timestamp
 
 				if time_dif >= 60 do
+					IO.puts "Po >= 60"
 					if time_dif > 60 do
+						IO.puts "Po > 60"
 						send pid_d, {:add, :nil, self()}
 						receive do
-							{:ok} -> :ko
+							{:ok} -> :timer.sleep(0)
+						end
 					end
-
+					
+					IO.puts "przed send pid_r"
 					send pid_r, {:read, self()}
+					IO.puts "Wyślij"
 					receive do
 						{:ok, percentage, status, caller} ->
 							send pid_d, {:add, %{status: status, pr: percentage}, self()}
