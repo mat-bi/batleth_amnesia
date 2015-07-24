@@ -27,7 +27,8 @@ defmodule DatabaseAccess do
 						end
                         		:add ->
 						case t do
-							:nil ->
+							nil ->
+								IO.puts ":nil"
 								Wpis.parse_wpis(nil, nil, nil) |> Wpis.add
 								send caller, {:ok}
 							%{status: stat, pr: per} -> 
