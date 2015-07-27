@@ -1,4 +1,4 @@
-defmodule Logger do
+defmodule Logging do
 	use GenServer
 	
 	def start do

@@ -9,7 +9,7 @@ defmodule Batleth do
 		#Mix.Task.run(:install, [])
                 Amnesia.start
 		Database.wait
-		Logger.start
+		Logging.start
 		DatabaseAccess.start
                 BatteryReader.start
 		{:ok, pid} = Clock.start_link
