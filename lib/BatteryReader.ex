@@ -27,7 +27,7 @@ defmodule BatteryReader do
 
 	def handle_call({:read}, _, _) do
 				case File.read("/sys/class/power_supply/BAT1/status") do
-					{:error, :enoent} -> parse_status("Not present\n")
+					{:error, :enoent} -> status = parse_status("Not present\n")
 					{:ok, status} -> status = parse_status(status)
 					_ -> :not_implemented
 				end
