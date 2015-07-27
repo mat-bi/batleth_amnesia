@@ -1,21 +1,24 @@
 defmodule Batleth do
 	use Application
 
-	def start(_type, _args) do
+	def start(_,_) do
 		require Amnesia
 		use Amnesia
-
 		use Database
-		#Mix.Task.run(:install, [])
+
                 Amnesia.start
 		Database.wait
-		Logging.start
-		DatabaseAccess.start
-                BatteryReader.start
-		{:ok, pid} = Clock.start_link
-		#{:ok, pid} = Batleth.Supervisor.init(:ok)
 
-		#Mix.Task.run(:uninstall, [])
+		import Supervisor.Spec
+		children = [
+			worker(Logging, [[], [name: :logger]]),
+			worker(DatabaseAccess, [[], [name: :base]]),
+			worker(BatteryReader, [[], [name: :battery]])
+			]
+		{:ok, pid_s} = Supervisor.start_link(children, strategy: :one_for_one)
+		{:ok, pid} = Clock.start_link
+		
+
 		{:ok, self()}
 end
 end

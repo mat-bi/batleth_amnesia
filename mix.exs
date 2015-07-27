@@ -16,7 +16,11 @@ defmodule Batleth.Mixfile do
   def application do
     [applications: [:logger],
     mod: { Batleth, []}]
-  end
+	
+ end
+def escript do
+	[main_module: Batleth]
+	end
 
   # Dependencies can be Hex packages:
   #

@@ -4,8 +4,8 @@ defmodule BatteryReader do
         Starts a battery reader. Takes one argument - pid of the writer.
 	If succeeded, returns a tuple {:ok, pid}
 	"""	
-	def start() do    
-		GenServer.start(__MODULE__, [], name: __MODULE__)
+	def start_link( state, opts) do    
+		GenServer.start(__MODULE__,  state, opts)
 	end
 
 
@@ -21,21 +21,34 @@ defmodule BatteryReader do
 	end
 
 	def read do
-		GenServer.call(__MODULE__, {:read})
+		GenServer.call(:battery, {:read})
 	end
 	
+	defp bad_cmd() do
+		Logging.write(:bad_cmd)
+		{:reply, {:error, :bad_command}, []}
+	end
 
 	def handle_call({:read}, _, _) do
 				case File.read("/sys/class/power_supply/BAT1/status") do
-					{:error, :enoent} -> status = parse_status("Not present\n")
+					{:error, :enoent} -> 
+						case File.read("/sys/class/power_supply/BAT0/status") do
+							{:ok, status} -> status = parse_status(status)
+							{:error, :enoent} -> status = parse_status("Not present\n")
+						end
 					{:ok, status} -> status = parse_status(status)
-					_ -> :not_implemented
+					_ ->  bad_cmd
+						
 				end
 
 				case File.read("/sys/class/power_supply/BAT1/capacity") do
-					{:error, :enoent} -> percentage = 0
+					{:error, :enoent} -> 
+						case File.read("/sys/class/power_supply/BAT0/capacity") do
+							{:error, :enoent} -> percentage = 0
+					                {:ok, percentage} -> { percentage, _} = Integer.parse(percentage)
+						end
 			 		{:ok, percentage} -> { percentage, _} = Integer.parse(percentage)
-					_ -> :not_implemented
+					_ -> bad_cmd
 				end
 				{:reply, { :ok, percentage, status}, []}
 			

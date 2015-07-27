@@ -2,11 +2,10 @@ defmodule Clock do
     
 
     @doc """
-        Starts a new thread to count time for adding records. Takes one parameter - pid of the writer.
+        Starts a new thread to count time for adding records.
         If succeeded, returns a tuple {:ok, pid}
         """
 	def start_link() do
-                
         	Task.start_link(fn() ->
                 loop(true) end)
 	end
@@ -33,6 +32,9 @@ defmodule Clock do
 					:timer.sleep(60000 - time_dif*1000)
 					loop()
 				end
+			{:error, :db} ->
+				Logging.write(:no_db)
+			_ -> Logging.write(:bad_cmd)
 		end
 	end
     

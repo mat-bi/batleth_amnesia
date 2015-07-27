@@ -5,16 +5,16 @@ defmodule DatabaseAccess do
 	@doc """
 		Starts databaseaccess.
 	"""
-	def start do
-		GenServer.start(__MODULE__, [], name: __MODULE__)
+	def start_link( state, opts) do
+		GenServer.start(__MODULE__,  state, opts)
 	end
 
 	def get(at) do
-		GenServer.call(__MODULE__, {:get, at})
+		GenServer.call(:base, {:get, at})
 	end
 	
 	def add(at) do
-		GenServer.call(__MODULE__, {:add, at})
+		GenServer.call(:base, {:add, at})
 	end
 
 	def handle_call({:get, :last_timestamp}, _, _) do
