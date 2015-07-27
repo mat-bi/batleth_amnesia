@@ -21,7 +21,7 @@ defdatabase Database do
 
         def getLast() do
             Amnesia.transaction do
-                Wpis.last!(true)
+                Wpis.last(true)
             end
         end
 
@@ -31,9 +31,7 @@ defdatabase Database do
              """
 
         def parse_wpis(percentage, st, tmp \\ :timestamp) do
-	{ms, s, _ } = :os.timestamp
-	tms = ms*1_000_000+s
-	    Amnesia.transaction do
+		tms = Time.timestamp
 		case getLast() do
 			a when is_integer a ->
 	    			a = Wpis.read(a)
@@ -47,12 +45,10 @@ defdatabase Database do
 			nil -> last_timestamp = tms
 	   	end
 		case tmp do
-			:timestamp -> tms = nil
-			_ -> tms = tms
+			:timestamp -> tms = tms
+			_ -> tms = tms-3
 		end 
             %Wpis{ timestamp: tms, status: st, pr: percentage, last_st_change: last_timestamp}
-
-	    end 
         end
             
         @doc """

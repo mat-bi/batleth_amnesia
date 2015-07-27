@@ -6,8 +6,12 @@ defmodule Batleth do
 		use Amnesia
 
 		use Database
-		Mix.Task.run(:install, [])
+		#Mix.Task.run(:install, [])
                 Amnesia.start
+		Database.wait
+		Logger.start
+		DatabaseAccess.start
+                BatteryReader.start
 		{:ok, pid} = Clock.start_link
 		#{:ok, pid} = Batleth.Supervisor.init(:ok)
 
