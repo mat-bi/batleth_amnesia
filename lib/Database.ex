@@ -39,7 +39,7 @@ defdatabase Database do
 		tms = Time.timestamp
 		case getLast() do
 			a when is_integer a ->
-	    			a = Wpis.read(a)
+	    			a = get(a)
 				last_timestamp = 0
 
 	   			if a.status == st do
