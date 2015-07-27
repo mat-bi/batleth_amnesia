@@ -14,6 +14,11 @@ defdatabase Database do
                Amnesia.Selection.values(r)
             end
         end
+	def get(tmp) do
+		Amnesia.transaction do
+			read(tmp)
+		end
+	end
    
         @doc """
              Returns the timestamp of the last record from the database
