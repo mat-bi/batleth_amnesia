@@ -14,8 +14,9 @@ case "$#" in
 				read r
 				if [[ "$r" = Y || "$r" = y ]]
 					then 
-						cp batleth.desktop ~/.config/autostart
+						cp files/batleth.desktop ~/.config/autostart
 				fi
+				sudo cp files/batleth /etc/init.d
 				cd /etc/
 				sudo chmod -R 777 batleth
 				cd batleth 
@@ -31,10 +32,8 @@ case "$#" in
 			"purge")
 				mix uninstall &> /dev/null
 				sudo rm -rf /var/log/batleth &> /dev/null;;
-			"kill") kill -9 `cat pid.txt`;;
 				
 			*) display_usage
 		esac;;
 	*) display_usage
-		echo "*" >> /home/mat-bi/b.txt
 esac
