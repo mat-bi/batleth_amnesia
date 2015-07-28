@@ -5,7 +5,7 @@ defmodule Logging do
 		[name: :logger]
 	end
 
-	def start_link(state, opts) do
+	def start_link(_, _) do
 		GenServer.start(__MODULE__, [], opts)
 	end
 

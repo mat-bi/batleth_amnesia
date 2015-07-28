@@ -7,7 +7,7 @@ defmodule DatabaseAccess do
 	@doc """
 		Starts databaseaccess.
 	"""
-	def start_link( state, opts) do
+	def start_link(_, _) do
 		GenServer.start(__MODULE__,  [], [name: @supervision_name])
 	end
 

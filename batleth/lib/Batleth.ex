@@ -13,7 +13,7 @@ defmodule Batleth do
 			worker(BatteryReader, [[], [name: :battery]]),
 			worker(Clock, [[], [name: :clock]])
 			]
-		{:ok, pid_s} = Supervisor.start_link(children, strategy: :one_for_one)
+		Supervisor.start_link(children, strategy: :one_for_one)
 		loop(true)
 		#{:ok, pid} = Task.start_link(fn -> loop(true) end)
 

@@ -9,7 +9,13 @@ case "$#" in
 	"1")
 		case "$1" in
 			"install") 
-				sudo cp batleth /etc
+				sudo cp -r batleth /etc
+				echo "Do you want to run it after starting the system? (Y/N): "
+				read r
+				if [[ "$r" = Y || "$r" = y ]]
+					then 
+						cp batleth.desktop ~/.config/autostart
+				fi
 				cd /etc/
 				sudo chmod -R 777 batleth
 				cd batleth 
@@ -18,12 +24,6 @@ case "$#" in
 				sudo chmod 667 /var/log/batleth 
 				mix install 
 				mix compile 
-				echo "Do you want to run it after starting the system? (Y/N): "
-				read r
-				if [[ "$r" = Y || "$r" = y ]]
-					then 
-						cp batleth.desktop ~/.config/autostart
-				fi
 				;;
 			"uninstall")
 				mix uninstall &> /dev/null

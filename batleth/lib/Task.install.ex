@@ -4,14 +4,14 @@ defmodule Mix.Tasks.Install do
 
   def run(_) do
 
-    IO.inspect Amnesia.Schema.create
-    IO.inspect Amnesia.start    
+    Amnesia.Schema.create
+    Amnesia.start    
     
-    IO.inspect Database.create(disk: [node])
+    Database.create(disk: [node])
 
-    IO.inspect Database.wait
+     Database.wait
 	    
-    # Stop mnesia so it can flush everything and keep the data sane.
-    #IO.inspect Amnesia.stop
+    
+    Amnesia.stop
   end
 end
