@@ -14,29 +14,27 @@ defmodule Batleth do
 			worker(Clock, [[], [name: :clock]])
 			]
 		Supervisor.start_link(children, strategy: :one_for_one)
-		loop(true)
+		loop()
 		#{:ok, pid} = Task.start_link(fn -> loop(true) end)
 
 		{:ok, self()}
 	end
 	
 	
-	def loop(bo \\ false) do
-			Amnesia.start
+	def loop() do
 			Database.wait
 			case Clock.read do
 				{at, time_dif} when is_atom(at) and is_integer(time_dif) ->
 					case at do
 						:ok ->
-							t = Time.timestamp
-							if time_dif > 60 and bo do
+							if time_dif > 60 do
 								{:ok} = DatabaseAccess.add(nil)
 							end
 	
 							{:ok, percentage, status} = BatteryReader.read
 	
 							DatabaseAccess.add(%{status: status, pr: percentage})
-							:timer.sleep(60000+(Time.timestamp-t)*1000)	
+							:timer.sleep(60000)	
 						:wait -> 
 							:timer.sleep(60000 - time_dif*1000)
 						_ -> Logging.write(:bad_cmd)
@@ -45,7 +43,6 @@ defmodule Batleth do
 				_ -> Logging.write(:bad_cmd)
 					:timer.sleep(2000)
 			end
-			Amnesia.stop
 			loop()
 	end
 end
