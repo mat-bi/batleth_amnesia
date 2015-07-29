@@ -9,7 +9,7 @@ case "$#" in
 		case "$1" in
 			"start") 
 				cd /etc/batleth
-				mix & &> /dev/null
+				mix &> /dev/null & 
 				echo $! > /etc/batleth/.pid.txt
 				chmod 777 /etc/batleth/.pid.txt;;
 			"stop")

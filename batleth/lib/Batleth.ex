@@ -22,6 +22,7 @@ defmodule Batleth do
 	
 	
 	def loop() do
+			Amnesia.start
 			Database.wait
 			case Clock.read do
 				{at, time_dif} when is_atom(at) and is_integer(time_dif) ->
@@ -43,7 +44,9 @@ defmodule Batleth do
 				_ -> Logging.write(:bad_cmd)
 					:timer.sleep(2000)
 			end
+			Amnesia.stop
 			loop()
+
 	end
 end
 
